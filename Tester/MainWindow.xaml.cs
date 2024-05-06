@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +29,7 @@ namespace Tester
         }
 
         Bitmap bm = new Bitmap(100, 100);
+        string filename = null;
 
         // Bing AI
         // https://stackoverflow.com/a/23831231/16426057
@@ -53,34 +56,60 @@ namespace Tester
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == true)
             {
-                string file = File.ReadAllText(ofd.FileName);
+                filename = ofd.FileName;
 
-                string[] split1 = file.Split(";");
+                Load();
 
-                string[] _split2 = split1[0].Split(",");
-                bm = new Bitmap(int.Parse(_split2[0]), int.Parse(_split2[1]));
+                // Bing AI
+                FileSystemWatcher watcher = new FileSystemWatcher();
+                watcher.Path = System.IO.Path.GetDirectoryName(filename);
+                watcher.Filter = System.IO.Path.GetFileName(filename);
 
-                for (int i = 1; i < split1.Length; i++)
-                {
-                    try
-                    {
-                        string[] split2 = split1[i].Split(",");
-
-                        int r = int.Parse(split2[0]);
-                        int g = int.Parse(split2[1]);
-                        int b = int.Parse(split2[2]);
-
-                        try
-                        {
-                            bm.SetPixel(i % bm.Width, i / bm.Height, System.Drawing.Color.FromArgb(r, g, b));
-                        }
-                        catch { }
-                    } catch { }
-                }
-
-                Img.Source = ToBitmapImage(bm);
+                watcher.Changed += new FileSystemEventHandler(OnChanged);
             }
             else Close();
+        }
+
+        private void OnChanged(object source, FileSystemEventArgs e)
+        {
+            Load();
+        }
+
+        private void Load()
+        {
+            // Bing AI
+            string file = File.ReadAllText(filename);
+
+            string[] split1 = file.Split(";");
+
+            string[] _split2 = split1[0].Split(",");
+            bm = new Bitmap(int.Parse(_split2[0]), int.Parse(_split2[1]));
+
+            for (int i = 1; i < split1.Length; i++)
+            {
+                try
+                {
+                    string[] split2 = split1[i].Split(",");
+
+                    int r = int.Parse(split2[0]);
+                    int g = int.Parse(split2[1]);
+                    int b = int.Parse(split2[2]);
+
+                    try
+                    {
+                        bm.SetPixel(i % bm.Width, i / bm.Height, System.Drawing.Color.FromArgb(r, g, b));
+                    }
+                    catch { }
+                }
+                catch { }
+            }
+
+            Img.Source = ToBitmapImage(bm);
+        }
+
+        private void Reload_Click(object sender, RoutedEventArgs e)
+        {
+            Load();
         }
     }
 }

@@ -17,6 +17,12 @@ struct Rectangle {
 	//Point point4;
 };
 
+struct Triangle {
+	Point point1;
+	Point point2;
+	Point point3;
+};
+
 class Bitmap {
 public:
 	Bitmap(int width, int height);
@@ -28,10 +34,15 @@ public:
 	void DrawLine(Point start, Point finish, unsigned int colour);
 	void DrawRectangle(Rectangle rectangle, unsigned int colour);
 	void DrawFilledRectangle(Rectangle rectangle, unsigned int colour);
+	void DrawTriangle(Triangle triangle, unsigned int colour);
+	void DrawFilledTriangle(Triangle triangle, unsigned int colour);
+
+	void Clear(unsigned int colour); // Clearing the Bitmap
 
 	// Seems a lot easier
 	Point CreatePoint(int x, int y);
 	Rectangle CreateRectangle(Point topLeft, Point bottomRight);
+	Triangle CreateTriangle(Point point1, Point point2, Point point3);
 
 	int width;
 	int height;

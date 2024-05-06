@@ -37,10 +37,14 @@ std::string Utilities::BitmapToString(Bitmap* bitmap) {
 	string += std::to_string(bitmap->height);
 	string += ";";
 
+	unsigned int total = 0;
+
 	for (size_t y = 0; y < bitmap->height; y++)
 	{
 		for (size_t x = 0; x < bitmap->width; x++)
 		{
+			total++;
+
 			//unsigned int ARGB = HEXToARGB(bitmap->FetchPixel(x, y));
 			std::vector<int> RGB = HEXToRGB(bitmap->FetchPixel(x, y));
 			int r = RGB[0];
@@ -56,6 +60,8 @@ std::string Utilities::BitmapToString(Bitmap* bitmap) {
 			string += ";";
 			//+std::to_string(g) + ', ' + std::to_string(b) + ';';
 		}
+
+		std::cout << "\rSaving " << (total / (bitmap->height * bitmap->width)) * 100 << "% " << total << "/" << (bitmap->height * bitmap->width);
 	}
 
 	return string;

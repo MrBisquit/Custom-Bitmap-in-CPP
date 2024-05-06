@@ -6,3 +6,7 @@ Colour::Colour(unsigned int colour, std::string name) {
 	this->colour = colour;
 	this->name = name;
 }
+
+Colours::Colours() {
+
+}

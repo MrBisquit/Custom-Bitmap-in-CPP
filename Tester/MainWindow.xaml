@@ -8,6 +8,13 @@
         Title="Tester" Height="450" Width="800"
         Loaded="Window_Loaded">
     <Grid>
-        <Image Name="Img"></Image>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Name="Reload" Click="Reload_Click">Reload</Button>
+            <Image Name="Img" Grid.Row="1"></Image>
+        </Grid>
     </Grid>
 </Window>
