@@ -31,16 +31,30 @@ unsigned int Utilities::HEXToARGB(unsigned int Hex) {
 }
 
 std::string Utilities::BitmapToString(Bitmap* bitmap) {
-	std::string string = bitmap->width + ",";
-	string += bitmap->height + ";";
+	std::string string = "";
+	string+= std::to_string(bitmap->width);
+	string += ",";
+	string += std::to_string(bitmap->height);
+	string += ";";
 
 	for (size_t y = 0; y < bitmap->height; y++)
 	{
 		for (size_t x = 0; x < bitmap->width; x++)
 		{
-			unsigned int ARGB = HEXToARGB(bitmap->FetchPixel(x, y));
+			//unsigned int ARGB = HEXToARGB(bitmap->FetchPixel(x, y));
+			std::vector<int> RGB = HEXToRGB(bitmap->FetchPixel(x, y));
+			int r = RGB[0];
+			int g = RGB[1];
+			int b = RGB[2];
 
-			string += ARGB + ";";
+			//string += ARGB + ";";
+			string += std::to_string(r);
+			string += ",";
+			string += std::to_string(g);
+			string += ",";
+			string += std::to_string(b);
+			string += ";";
+			//+std::to_string(g) + ', ' + std::to_string(b) + ';';
 		}
 	}
 

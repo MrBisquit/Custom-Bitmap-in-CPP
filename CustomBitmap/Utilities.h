@@ -14,6 +14,7 @@ public:
 
 	// To a string
 	static std::string BitmapToString(Bitmap* bitmap); // Will use HexToARGB to convert from HEX to ARGB and then store in a file
+	static void SaveString(std::string filename, std::string contents);
 };
 
 #endif // !Utilities

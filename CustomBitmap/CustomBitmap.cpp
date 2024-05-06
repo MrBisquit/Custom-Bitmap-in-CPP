@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -28,9 +29,20 @@ int main()
 
     bm = new Bitmap(width, height);
 
-    std::cout << "\nInitialised new Bitmap";
+    std::cout << "\nInitialised new Bitmap\n";
 
-    std::cout << Utilities::BitmapToString(bm);
+    std::cout << "Saving...";
+    std::string bitmap = Utilities::BitmapToString(bm);
+    std::cout << "\nWhere would you like to save to? (Valid path, no spaces) ";
+    std::string path = "";
+    std::cin >> path;
+    ofstream myfile(path);
+    if (myfile.is_open()) {
+        myfile << bitmap;
+
+        myfile.close();
+    }
+    std::cout << "\nSaved!\nCheck " << path;
 
     // Once finished, clear it up
     delete bm;
