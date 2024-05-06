@@ -29,6 +29,10 @@ public:
 	void DrawRectangle(Rectangle rectangle, unsigned int colour);
 	void DrawFilledRectangle(Rectangle rectangle, unsigned int colour);
 
+	// Seems a lot easier
+	Point CreatePoint(int x, int y);
+	Rectangle CreateRectangle(Point topLeft, Point bottomRight);
+
 	int width;
 	int height;
 private:

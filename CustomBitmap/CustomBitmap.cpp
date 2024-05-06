@@ -31,6 +31,11 @@ int main()
 
     std::cout << "\nInitialised new Bitmap\n";
 
+    std::cout << "Would you like to add\n";
+    std::cout << "1 = A line (Point A -> Point B)";
+    std::cout << "2 = A rectangle (Point A -> Point B)";
+    std::cout << "3 = A filled rectangle ((Point A -> Point B) + Fill)";
+
     std::cout << "Saving...";
     std::string bitmap = Utilities::BitmapToString(bm);
     std::cout << "\nWhere would you like to save to? (Valid path, no spaces) ";
@@ -46,4 +51,13 @@ int main()
 
     // Once finished, clear it up
     delete bm;
+
+    std::cout << "\n\nWould you like to start again? (y/n)";
+    char start = 'n';
+    std::cin >> start;
+
+    if (start == 'y') {
+        return main();
+    }
+    else return 1;
 }

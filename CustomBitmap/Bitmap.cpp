@@ -57,3 +57,22 @@ void Bitmap::DrawFilledRectangle(Rectangle rectangle, unsigned int colour) {
 Bitmap::SetPixel(int x, int y, vector<int> pixel) {
 
 }*/
+
+// What I think to be the easiest way of doing this
+Point Bitmap::CreatePoint(int x, int y) {
+	Point point;
+
+	point.x = x;
+	point.y = y;
+
+	return point;
+}
+
+Rectangle Bitmap::CreateRectangle(Point topLeft, Point bottomRight) {
+	Rectangle rectangle;
+
+	rectangle.point1 = topLeft;
+	rectangle.point2 = bottomRight;
+
+	return rectangle;
+}
